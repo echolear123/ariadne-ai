@@ -1,0 +1,95 @@
+{
+  "name": "canvas_md",
+  "version": "1.0.0",
+  "description": "Markdown 画布 - 思维导图 + 卡片笔记布，每个节点都是标准 .md 文本",
+  "author": "AI Agent",
+  "tools": [
+    {
+      "name": "get_canvas",
+      "description": "读取整张画布 (所有节点和连线)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "canvas_id": {"type": "string", "description": "画布 ID"}
+        },
+        "required": ["canvas_id"]
+      }
+    },
+    {
+      "name": "add_node",
+      "description": "在画布上新增一个 Markdown 卡片节点",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "canvas_id": {"type": "string", "description": "画布 ID"},
+          "title": {"type": "string", "description": "卡片标题"},
+          "content": {"type": "string", "description": "Markdown 正文"},
+          "x": {"type": "number", "description": "X 坐标 (默认 200)"},
+          "y": {"type": "number", "description": "Y 坐标 (默认 200)"},
+          "width": {"type": "number", "description": "宽度 (默认 350)"},
+          "height": {"type": "number", "description": "高度 (默认 250)"}
+        },
+        "required": ["canvas_id", "title", "content"]
+      }
+    },
+    {
+      "name": "add_edge",
+      "description": "连接两个节点 (如: A指向B)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "canvas_id": {"type": "string", "description": "画布 ID"},
+          "source_id": {"type": "string", "description": "源节点 ID"},
+          "target_id": {"type": "string", "description": "目标节点 ID"},
+          "label": {"type": "string", "description": "连线标签 (可选)"}
+        },
+        "required": ["canvas_id", "source_id", "target_id"]
+      }
+    },
+    {
+      "name": "export_markdown",
+      "description": "将整张画布导出为一个层级 Markdown 文档 (路径二)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "canvas_id": {"type": "string", "description": "画布 ID"}
+        },
+        "required": ["canvas_id"]
+      }
+    },
+    {
+      "name": "ai_expand_node",
+      "description": "读取某卡片内容 → 适合传给 LLM 做扩展/续写 (节点单推)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "canvas_id": {"type": "string", "description": "画布 ID"},
+          "node_id": {"type": "string", "description": "节点 ID"}
+        },
+        "required": ["canvas_id", "node_id"]
+      }
+    },
+    {
+      "name": "get_canvas_context",
+      "description": "获取画布全局上下文 (所有节点+边关系) → 适合做 RAG",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "canvas_id": {"type": "string", "description": "画布 ID"}
+        },
+        "required": ["canvas_id"]
+      }
+    },
+    {
+      "name": "summarize_cards",
+      "description": "总结画布上所有卡片内容",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "canvas_id": {"type": "string", "description": "画布 ID"}
+        },
+        "required": ["canvas_id"]
+      }
+    }
+  ]
+}

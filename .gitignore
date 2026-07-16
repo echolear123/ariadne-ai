@@ -1,0 +1,72 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# Environment
+.env
+*.env.local
+
+# Database
+*.db
+*.db-journal
+*.db-wal
+
+# Logs
+audit.log
+*.log
+
+# ZVec vector store (binary, rebuildable)
+tech_bureau_zvec/
+tech_bureau_zvec_v*/
+
+# Text store (rebuildable)
+text_store.json
+
+# Uploads
+uploads/
+
+# Static built files (rebuildable via npm)
+static/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Canvas data (user content)
+canvases/
+
+# Source documents (user content)
+source/
+knowledge_base/
+
+# Fast memory docs index (user content, rebuildable)
+fast_memory/docs_index/
+fast_memory/entities/
+fast_memory/skills/
+fast_memory/corrections.md
+fast_memory/public_faq.md
+fast_memory/source_manifest.md
+fast_memory/sessions/
+
+# Session DB
+tech_bureau_sessions.db
+
+# Uploaded images
+static/uploads/

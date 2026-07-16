@@ -1,0 +1,32 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "数学计算与单位换算工具",
+  "author": "AI Agent",
+  "tools": [
+    {
+      "name": "evaluate",
+      "description": "安全计算数学表达式，支持 + - * / () ^ 和 pi/e/sqrt 函数",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "expression": {"type": "string", "description": "数学表达式，如 2+3*4"}
+        },
+        "required": ["expression"]
+      }
+    },
+    {
+      "name": "convert_unit",
+      "description": "单位换算 (km/m/cm/mm, kg/g/mg, h/min/s, 温度)",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "value": {"type": "number", "description": "数值"},
+          "from_unit": {"type": "string", "description": "源单位"},
+          "to_unit": {"type": "string", "description": "目标单位"}
+        },
+        "required": ["value", "from_unit", "to_unit"]
+      }
+    }
+  ]
+}
