@@ -140,7 +140,7 @@ nano .env   # 填入你的 SiliconFlow API Key，其他保持默认即可
 python run.py
 ```
 
-打开浏览器访问 **http://localhost:7860**，使用默认账号 `echo` / `echo123` 登录。
+打开浏览器访问 **http://localhost:7860**，使用默认账号 `admin` / `admin123` 登录（在 `config.py` 中修改 USERS 字典即可增删用户）。
 
 ### 方式二：开发模式（前后端分离）
 

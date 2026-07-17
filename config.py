@@ -60,6 +60,7 @@ SUMMARY_TRIGGER_MINUTES = 30  # 最旧轮次超过此时间触发摘要
 # === 用户认证 ===
 # 用户名 → 密码，在此处添加/修改用户
 USERS = {
+    "admin": "admin123",
     "echo": "echo123",
 }
 
