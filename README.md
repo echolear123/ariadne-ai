@@ -121,38 +121,63 @@ ariadne/
 │   └── pdf_page_reader.py  # 解析利刃：干净利落地剖开 PDF，提取最纯粹的文本
 └── frontend/           
     └── src/                # 极简、清爽的毛玻璃交互面板 (基于 React 与 Vite)
-🛠️ Quick Start | 点亮红线
-我们尽量让部署过程像泡一杯咖啡一样简单：
+## 🛠️ Quick Start | 点亮红线
 
-1. 唤醒本地代码
-确保你的系统里有 Python 3.9+ 环境。在你的终端中输入：
+### 方式一：快速部署（推荐，生产模式）
 
-Bash
-git clone [https://github.com/echolear123/ariadne-ai.git](https://github.com/echolear123/ariadne-ai.git)
+```bash
+git clone https://github.com/echolear123/ariadne-ai.git
 cd ariadne-ai
-2. 铺设环境基础
-Bash
-# 安装后端依赖
+
+# 1. 安装依赖
 pip install -r requirements.txt
 
-# 准备你的配置文件
+# 2. 配置环境变量
 cp .env.example .env
-请用编辑器打开 .env 文件，填入你的 API 密钥。我们支持多种主流的模型后端。
+nano .env   # 填入你的 SiliconFlow API Key，其他保持默认即可
 
-3. 让系统跑起来
-打开两个终端窗口，分别启动后端与前端：
-
-启动后端（掌控逻辑）：
-
-Bash
+# 3. 启动（单命令，含前端）
 python run.py
-启动前端（掌控视觉）：
+```
 
-Bash
+打开浏览器访问 **http://localhost:7860**，使用默认账号 `echo` / `echo123` 登录。
+
+### 方式二：开发模式（前后端分离）
+
+```bash
+# 终端 1：启动后端
+python app.py
+
+# 终端 2：启动前端开发服务器
 cd frontend
 npm install
 npm run dev
-现在，打开浏览器中输出的本地链接（通常是 http://localhost:5173），你就能看到那个深蓝色的、带有微光纹理的 Ariadne 登录界面。输入你配置的账号，开始和你的文档对话吧！
+```
+
+前端开发服务器默认运行在 **http://localhost:5173**，会自动代理 API 请求到后端 7860 端口。
+
+### .env 配置说明
+
+```bash
+# 必填：SiliconFlow API Key（在 https://siliconflow.cn 注册获取）
+SF_API_KEY=sk-xxxxxxxxxxxxxxxx
+
+# 以下为可选配置，保持默认即可正常使用
+SF_BASE_URL=https://api.siliconflow.cn/v1
+LLM_MODEL=Qwen/Qwen3-8B
+EMBEDDING_MODEL=BAAI/bge-large-zh-v1.5
+WEB_HOST=0.0.0.0
+WEB_PORT=7860
+```
+
+> **注意**：配置值不要加引号或反引号，直接写即可。例如 `SF_API_KEY=sk-xxx` 而不是 `SF_API_KEY="sk-xxx"`。
+
+### 方式三：Docker 部署
+
+```bash
+docker build -t ariadne-ai .
+docker run -p 7860:7860 -e SF_API_KEY=sk-xxx ariadne-ai
+```
 
 🤝 Contribution & License | 协力与许可
 Ariadne 采用 Apache-2.0 许可证开源。

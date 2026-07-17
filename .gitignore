@@ -32,9 +32,6 @@ text_store.json
 # Uploads
 uploads/
 
-# Static built files (rebuildable via npm)
-static/
-
 # Node
 frontend/node_modules/
 frontend/dist/
