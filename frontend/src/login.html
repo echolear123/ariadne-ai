@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ariadne - 循线破局</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background-color: #050505; 
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      overflow: hidden;
+      cursor: crosshair;
+    }
+
+    #thread-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .login-card {
+      position: relative;
+      width: 380px;
+      padding: 50px 40px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, rgba(30, 30, 30, 0.6) 0%, rgba(10, 10, 10, 0.8) 100%);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      box-sizing: border-box;
+      border: 1px solid transparent;
+      background-clip: padding-box;
+    }
+
+    .login-card::before {
+      content: '';
+      position: absolute;
+      top: -2px; left: -2px; right: -2px; bottom: -2px;
+      background: linear-gradient(45deg, rgba(255,50,50,0.1), rgba(255,255,255,0.05), rgba(255,50,50,0.2));
+      z-index: -2;
+      border-radius: 22px;
+      animation: borderGlow 6s linear infinite;
+    }
+
+    @keyframes borderGlow {
+      0% { filter: hue-rotate(0deg); opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { filter: hue-rotate(360deg); opacity: 0.5; }
+    }
+
+    #maze-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15; 
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .project-title {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      margin: 0 0 10px 0;
+      background: linear-gradient(to right, #ffffff, #ff4b4b, #ffffff);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: textGradient 3s linear infinite;
+    }
+
+    @keyframes textGradient {
+      to { background-position: 200% center; }
+    }
+
+    .project-subtitle {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 2px;
+      margin: 0;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .login-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 10px 0;
+      font-size: 15px;
+      color: #fff;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    .login-input::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+      font-size: 13px;
+      letter-spacing: 1px;
+    }
+
+    .input-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ff3333, #ff8888);
+      transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .login-input:focus {
+      outline: none;
+    }
+
+    .login-input:focus ~ .input-line {
+      width: 100%;
+      box-shadow: 0 0 10px rgba(255, 50, 50, 0.5);
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      background: linear-gradient(90deg, rgba(30,30,30,0.8), rgba(50,20,20,0.8));
+      border: 1px solid rgba(255, 75, 75, 0.2);
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 15px;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-button:hover {
+      background: linear-gradient(90deg, rgba(50,20,20,1), rgba(150,30,30,0.8));
+      color: #fff;
+      border-color: rgba(255, 75, 75, 0.6);
+      box-shadow: 0 0 20px rgba(255, 50, 50, 0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="thread-canvas"></canvas>
+
+  <div class="login-card">
+    <canvas id="maze-canvas"></canvas>
+
+    <div class="content">
+      <div class="login-header">
+        <h1 class="project-title">Ariadne</h1>
+        <p class="project-subtitle">循此红线，洞见万卷</p>
+      </div>
+
+      <form onsubmit="event.preventDefault();">
+        <div class="input-group">
+          <input type="text" class="login-input" placeholder="输入行者名称" required />
+          <div class="input-line"></div>
+        </div>
+        <div class="input-group">
+          <input type="password" class="login-input" placeholder="输入通路密钥" required />
+          <div class="input-line"></div>
+        </div>
+        <button type="submit" class="login-button">循线破局</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================
+       1. 动态变化迷宫 (无变化，作为背景)
+       ========================================= */
+    const mazeCanvas = document.getElementById('maze-canvas');
+    const mCtx = mazeCanvas.getContext('2d');
+    
+    function resizeMaze() {
+      mazeCanvas.width = mazeCanvas.offsetWidth;
+      mazeCanvas.height = mazeCanvas.offsetHeight;
+    }
+    resizeMaze();
+
+    const gridSize = 20; 
+    let cols = Math.ceil(mazeCanvas.width / gridSize);
+    let rows = Math.ceil(mazeCanvas.height / gridSize);
+    let mazeData = [];
+
+    for(let i = 0; i < cols * rows; i++) {
+      mazeData.push(Math.random() > 0.5 ? 1 : 0);
+    }
+
+    function drawMaze() {
+      mCtx.clearRect(0, 0, mazeCanvas.width, mazeCanvas.height);
+      mCtx.strokeStyle = "rgba(255, 255, 255, 0.8)";
+      mCtx.lineWidth = 2;
+      mCtx.lineCap = "round";
+
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < cols; x++) {
+          let idx = x + y * cols;
+          let px = x * gridSize;
+          let py = y * gridSize;
+
+          mCtx.beginPath();
+          if (mazeData[idx] === 1) {
+            mCtx.moveTo(px, py);
+            mCtx.lineTo(px + gridSize, py + gridSize);
+          } else {
+            mCtx.moveTo(px + gridSize, py);
+            mCtx.lineTo(px, py + gridSize);
+          }
+          mCtx.stroke();
+        }
+      }
+    }
+
+    setInterval(() => {
+      for(let i=0; i<3; i++) {
+        let randomIdx = Math.floor(Math.random() * mazeData.length);
+        mazeData[randomIdx] = mazeData[randomIdx] === 1 ? 0 : 1;
+      }
+      drawMaze();
+    }, 100);
+
+    /* =========================================
+       2. 终极性能优化版：极致丝滑的婉约红线
+       ========================================= */
+    const threadCanvas = document.getElementById('thread-canvas');
+    const tCtx = threadCanvas.getContext('2d');
+    
+    function resizeThreadCanvas() {
+      threadCanvas.width = window.innerWidth;
+      threadCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', () => {
+      resizeThreadCanvas();
+      resizeMaze();
+    });
+    resizeThreadCanvas();
+
+    let mouse = { x: window.innerWidth/2, y: window.innerHeight/2 };
+    let trail = []; 
+    const maxTrail = 90; // 尾巴长度
+
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    });
+
+    function renderThread() {
+      // 完全抛弃卡顿的 shadowBlur，使用纯粹的清屏重绘
+      tCtx.clearRect(0, 0, threadCanvas.width, threadCanvas.height);
+      
+      // 每一帧记录鼠标位置，即使不动也会记录，这样能形成尾巴自动收缩的物理效果
+      trail.push({ x: mouse.x, y: mouse.y });
+      if (trail.length > maxTrail) {
+        trail.shift();
+      }
+
+      if (trail.length > 2) {
+        tCtx.lineCap = "round";
+        tCtx.lineJoin = "round";
+
+        // 利用中点贝塞尔曲线（Midpoint Quadratic Curve）实现绝对平滑
+        for (let i = 1; i < trail.length - 1; i++) {
+          const ratio = i / trail.length;
+          // 透明度指数衰减，尾部极其朦胧
+          const alpha = Math.pow(ratio, 2); 
+
+          const prevXc = (trail[i - 1].x + trail[i].x) / 2;
+          const prevYc = (trail[i - 1].y + trail[i].y) / 2;
+          const xc = (trail[i].x + trail[i + 1].x) / 2;
+          const yc = (trail[i].y + trail[i + 1].y) / 2;
+
+          // 【底层光晕】用宽线条 + 低透明度模拟发光，性能极高
+          tCtx.beginPath();
+          tCtx.moveTo(prevXc, prevYc);
+          tCtx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
+          tCtx.strokeStyle = `rgba(255, 30, 50, ${alpha * 0.35})`; 
+          tCtx.lineWidth = 14 * ratio; 
+          tCtx.stroke();
+
+          // 【高光内核】细线条 + 高透明度，带点偏粉白，增加立体感
+          tCtx.beginPath();
+          tCtx.moveTo(prevXc, prevYc);
+          tCtx.quadraticCurveTo(trail[i].x, trail[i].y, xc, yc);
+          tCtx.strokeStyle = `rgba(255, 150, 150, ${alpha * 0.9})`; 
+          tCtx.lineWidth = 2.5 * ratio;
+          tCtx.stroke();
+        }
+
+        // 补齐最后一段到鼠标针尖的缝隙
+        const last = trail.length - 1;
+        const prevXc = (trail[last - 1].x + trail[last].x) / 2;
+        const prevYc = (trail[last - 1].y + trail[last].y) / 2;
+
+        tCtx.beginPath();
+        tCtx.moveTo(prevXc, prevYc);
+        tCtx.lineTo(trail[last].x, trail[last].y);
+        tCtx.strokeStyle = `rgba(255, 30, 50, 0.35)`;
+        tCtx.lineWidth = 14;
+        tCtx.stroke();
+
+        tCtx.beginPath();
+        tCtx.moveTo(prevXc, prevYc);
+        tCtx.lineTo(trail[last].x, trail[last].y);
+        tCtx.strokeStyle = `rgba(255, 150, 150, 0.9)`;
+        tCtx.lineWidth = 2.5;
+        tCtx.stroke();
+      }
+      
+      requestAnimationFrame(renderThread);
+    }
+    
+    renderThread();
+  </script>
+</body>
+</html>
