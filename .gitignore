@@ -54,6 +54,7 @@ canvases/
 
 # Source documents (user content)
 source/
+!source/source_manifest.py
 knowledge_base/
 
 # Fast memory docs index (user content, rebuildable)
