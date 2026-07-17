@@ -53,7 +53,7 @@ Thumbs.db
 canvases/
 
 # Source documents (user content)
-source/
+source/*
 !source/source_manifest.py
 knowledge_base/
 
