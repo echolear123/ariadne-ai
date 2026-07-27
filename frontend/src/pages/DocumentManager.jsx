@@ -5,23 +5,23 @@ import {
 } from '../api.js'
 
 const s = {
-  container: { padding: '24px 32px', maxWidth: 1200, margin: '0 auto' },
+  container: { padding: '24px 32px', maxWidth: 1200, margin: '0 auto', background: '#eaf6f0', minHeight: '100vh' },
   header: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
-  title: { fontSize: 22, fontWeight: 600, color: '#1e293b', margin: 0 },
-  backBtn: { padding: '6px 14px', fontSize: 12, background: '#f1f5f9', color: '#475569', border: 'none', borderRadius: 6, cursor: 'pointer' },
-  tabs: { display: 'flex', gap: 0, marginBottom: 20, borderBottom: '2px solid #e2e8f0' },
-  tab: { padding: '8px 20px', fontSize: 13, border: 'none', background: 'none', cursor: 'pointer', color: '#64748b', borderBottom: '2px solid transparent', marginBottom: -2 },
-  tabActive: { padding: '8px 20px', fontSize: 13, border: 'none', background: 'none', cursor: 'pointer', color: '#2563eb', borderBottom: '2px solid #2563eb', marginBottom: -2, fontWeight: 600 },
-  table: { width: '100%', borderCollapse: 'collapse', background: '#fff', borderRadius: 8, overflow: 'hidden', boxShadow: '0 1px 3px rgba(0,0,0,.06)' },
-  th: { textAlign: 'left', padding: '8px 12px', background: '#f8fafc', borderBottom: '2px solid #e2e8f0', fontSize: 12, fontWeight: 600, color: '#64748b' },
-  td: { padding: '8px 12px', borderBottom: '1px solid #f1f5f9', fontSize: 12, color: '#334155', maxWidth: 300, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
-  actionBtn: { padding: '3px 8px', fontSize: 11, border: 'none', borderRadius: 3, cursor: 'pointer', marginRight: 3 },
-  uploadBtn: { padding: '8px 18px', background: '#059669', color: '#fff', border: 'none', borderRadius: 6, cursor: 'pointer', fontSize: 13, fontWeight: 500 },
-  statsBar: { display: 'flex', gap: 20, marginBottom: 14, fontSize: 12, color: '#64748b' },
-  empty: { textAlign: 'center', padding: 40, color: '#94a3b8', fontSize: 13 },
-  notesInput: { width: '100%', padding: '3px 6px', fontSize: 11, border: '1px solid #d1d5db', borderRadius: 3, outline: 'none' },
+  title: { fontSize: 22, fontWeight: 600, color: '#0f3d2a', margin: 0 },
+  backBtn: { padding: '6px 14px', fontSize: 12, background: '#fff', color: '#0f3d2a', border: '3px solid #0f3d2a', borderRadius: 6, cursor: 'pointer', boxShadow: '2px 2px 0px #0f3d2a' },
+  tabs: { display: 'flex', gap: 0, marginBottom: 20, borderBottom: '3px solid #bce1ce' },
+  tab: { padding: '8px 20px', fontSize: 13, border: '3px solid transparent', background: 'none', cursor: 'pointer', color: '#555', borderBottom: 'none', marginBottom: -3 },
+  tabActive: { padding: '8px 20px', fontSize: 13, border: '3px solid #0f3d2a', background: '#c3ebd5', cursor: 'pointer', color: '#0f3d2a', borderBottom: 'none', marginBottom: -3, fontWeight: 600, borderRadius: '6px 6px 0 0' },
+  table: { width: '100%', borderCollapse: 'collapse', background: '#fff', borderRadius: 8, overflow: 'hidden', border: '3px solid #0f3d2a', boxShadow: '4px 4px 0px #0f3d2a' },
+  th: { textAlign: 'left', padding: '8px 12px', background: '#eaf6f0', borderBottom: '3px solid #0f3d2a', fontSize: 12, fontWeight: 600, color: '#0f3d2a' },
+  td: { padding: '8px 12px', borderBottom: '2px solid #bce1ce', fontSize: 12, color: '#0f3d2a', maxWidth: 300, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+  actionBtn: { padding: '3px 8px', fontSize: 11, border: '2px solid #0f3d2a', borderRadius: 3, cursor: 'pointer', marginRight: 3, boxShadow: '1px 1px 0px #0f3d2a' },
+  uploadBtn: { padding: '8px 18px', background: '#178351', color: '#fff', border: '3px solid #0f3d2a', borderRadius: 6, cursor: 'pointer', fontSize: 13, fontWeight: 500, boxShadow: '3px 3px 0px #0f3d2a' },
+  statsBar: { display: 'flex', gap: 20, marginBottom: 14, fontSize: 12, color: '#555', flexWrap: 'wrap', alignItems: 'center' },
+  empty: { textAlign: 'center', padding: 40, color: '#555', fontSize: 13 },
+  notesInput: { width: '100%', padding: '3px 6px', fontSize: 11, border: '2px solid #bce1ce', borderRadius: 3, outline: 'none', color: '#0f3d2a' },
   sourceGroup: { marginBottom: 16 },
-  sourceTitle: { fontSize: 13, fontWeight: 600, color: '#1e293b', marginBottom: 6, padding: '4px 8px', background: '#f1f5f9', borderRadius: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
+  sourceTitle: { fontSize: 13, fontWeight: 600, color: '#0f3d2a', marginBottom: 6, padding: '4px 8px', background: '#eaf6f0', borderRadius: 4, border: '2px solid #bce1ce', display: 'flex', justifyContent: 'space-between', alignItems: 'center' },
 }
 
 export default function DocumentManager({ onBack }) {
@@ -230,7 +230,7 @@ export default function DocumentManager({ onBack }) {
                           if (e.key === 'Escape') setEditingNotes(null)
                         }} />
                     ) : (
-                      <span style={{ color: doc.notes ? '#334155' : '#cbd5e1', cursor: 'pointer' }}
+                      <span style={{ color: doc.notes ? '#0f3d2a' : '#bce1ce', cursor: 'pointer' }}
                         onClick={() => setEditingNotes(doc.filename)} title={doc.notes || '点击添加备注'}>
                         {doc.notes || '点击添加备注'}
                       </span>

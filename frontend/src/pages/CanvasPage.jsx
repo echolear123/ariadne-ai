@@ -703,7 +703,7 @@ export default function CanvasPage({ canvasId, onBack }) {
 
   if (loading) return (
     <div style={styles.container}>
-      <div style={{ color: '#94a3b8', textAlign: 'center', paddingTop: 100, fontSize: 14 }}>加载画布...</div>
+      <div style={{ color: '#555', textAlign: 'center', paddingTop: 100, fontSize: 14 }}>加载画布...</div>
     </div>
   )
 
@@ -713,30 +713,30 @@ export default function CanvasPage({ canvasId, onBack }) {
   return (
     <div style={styles.container}>
       <style>{`
-        .canvas-md h1 { font-size: 15px; font-weight: 700; color: #f1f5f9; margin: 6px 0; }
-        .canvas-md h2 { font-size: 13px; font-weight: 600; color: #e2e8f0; margin: 5px 0; border-bottom: 1px solid #334155; padding-bottom: 3px; }
-        .canvas-md h3 { font-size: 12px; font-weight: 600; color: #cbd5e1; margin: 4px 0; }
-        .canvas-md p { margin: 3px 0; color: #cbd5e1; }
+        .canvas-md h1 { font-size: 15px; font-weight: 700; color: #0f3d2a; margin: 6px 0; }
+        .canvas-md h2 { font-size: 13px; font-weight: 600; color: #0f3d2a; margin: 5px 0; border-bottom: 2px solid #bce1ce; padding-bottom: 3px; }
+        .canvas-md h3 { font-size: 12px; font-weight: 600; color: #0f3d2a; margin: 4px 0; }
+        .canvas-md p { margin: 3px 0; color: #0f3d2a; }
         .canvas-md ul, .canvas-md ol { padding-left: 16px; margin: 3px 0; }
-        .canvas-md li { margin: 1px 0; color: #cbd5e1; }
-        .canvas-md code { background: #334155; color: #f472b6; padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: monospace; }
-        .canvas-md pre { background: #0f172a; padding: 8px 10px; border-radius: 6px; overflow-x: auto; margin: 4px 0; }
-        .canvas-md pre code { background: none; padding: 0; color: #e2e8f0; }
-        .canvas-md blockquote { border-left: 3px solid #6366f1; padding-left: 10px; margin: 4px 0; color: #94a3b8; }
+        .canvas-md li { margin: 1px 0; color: #0f3d2a; }
+        .canvas-md code { background: #eaf6f0; color: #dc2626; padding: 1px 5px; border-radius: 3px; font-size: 11px; font-family: inherit; }
+        .canvas-md pre { background: #0f3d2a; padding: 8px 10px; border-radius: 6px; overflow-x: auto; margin: 4px 0; }
+        .canvas-md pre code { background: none; padding: 0; color: #bce1ce; }
+        .canvas-md blockquote { border-left: 3px solid #476aed; padding-left: 10px; margin: 4px 0; color: #555; }
         .canvas-md table { border-collapse: collapse; width: 100%; margin: 4px 0; font-size: 11px; }
-        .canvas-md th { background: #334155; color: #e2e8f0; padding: 3px 6px; border: 1px solid #475569; text-align: left; }
-        .canvas-md td { padding: 3px 6px; border: 1px solid #475569; color: #cbd5e1; }
-        .canvas-md a { color: #818cf8; }
-        .canvas-md strong { color: #f1f5f9; }
-        .canvas-md hr { border: none; border-top: 1px solid #334155; margin: 6px 0; }
-        .canvas-md em { color: #fbbf24; font-style: italic; }
+        .canvas-md th { background: #eaf6f0; color: #0f3d2a; padding: 3px 6px; border: 1px solid #0f3d2a; text-align: left; }
+        .canvas-md td { padding: 3px 6px; border: 1px solid #bce1ce; color: #0f3d2a; }
+        .canvas-md a { color: #476aed; }
+        .canvas-md strong { color: #0f3d2a; }
+        .canvas-md hr { border: none; border-top: 2px solid #bce1ce; margin: 6px 0; }
+        .canvas-md em { color: #eb7a7a; font-style: italic; }
         .canvas-md img { max-width: 100%; border-radius: 6px; margin: 4px 0; }
       `}</style>
 
       {/* 工具栏 */}
       <div style={styles.toolbar}>
         <button onClick={() => { saveCanvas(canvas); onBack() }} style={tbBtn}>← 聊天</button>
-        <div style={{ flex: 1, textAlign: 'center', fontWeight: 600, fontSize: 14, color: '#f1f5f9' }}>
+        <div style={{ flex: 1, textAlign: 'center', fontWeight: 600, fontSize: 14, color: '#0f3d2a' }}>
           {canvas.title || '画布'}
         </div>
         <span style={tbInfo}>{canvas.nodes.length} 节点 · {canvas.edges.length} 连线 · {(canvas.drawings || []).length} 标注</span>
@@ -748,7 +748,7 @@ export default function CanvasPage({ canvasId, onBack }) {
           🤖 AI
         </button>
         <button onClick={() => setScale(s => Math.min(3, s + 0.15))} style={tbBtn}>+</button>
-        <span style={{ color: '#94a3b8', fontSize: 12, minWidth: 36, textAlign: 'center' }}>{Math.round(scale * 100)}%</span>
+        <span style={{ color: '#555', fontSize: 12, minWidth: 36, textAlign: 'center' }}>{Math.round(scale * 100)}%</span>
         <button onClick={() => setScale(s => Math.max(0.2, s - 0.15))} style={tbBtn}>-</button>
       </div>
 
@@ -768,9 +768,9 @@ export default function CanvasPage({ canvasId, onBack }) {
               onClick={() => { setActiveTool(t.id); if (t.id !== 'select') { setSelectedNode(null); setEditingNode(null); setSelectedDrawing(null) } }}
               style={{
                 ...toolBtn,
-                background: activeTool === t.id ? '#4f46e5' : '#1e293b',
-                color: activeTool === t.id ? '#fff' : '#94a3b8',
-                boxShadow: activeTool === t.id ? '0 0 0 2px #818cf8' : 'none',
+                background: activeTool === t.id ? '#476aed' : '#fff',
+                color: activeTool === t.id ? '#fff' : '#0f3d2a',
+                boxShadow: activeTool === t.id ? '0 0 0 2px #0f3d2a' : '2px 2px 0px #0f3d2a',
               }}
             >{t.icon}</button>
           ))}
@@ -799,8 +799,8 @@ export default function CanvasPage({ canvasId, onBack }) {
               onClick={() => setStrokeWidth(sw.value)}
               style={{
                 ...toolBtn,
-                background: strokeWidth === sw.value ? '#4f46e5' : '#1e293b',
-                color: strokeWidth === sw.value ? '#fff' : '#94a3b8',
+                background: strokeWidth === sw.value ? '#476aed' : '#fff',
+                color: strokeWidth === sw.value ? '#fff' : '#0f3d2a',
                 fontSize: 10,
               }}
             >{sw.label}</button>
@@ -809,8 +809,8 @@ export default function CanvasPage({ canvasId, onBack }) {
           <div style={styles.toolDivider} />
 
           {/* 撤销/清除 */}
-          <button title="撤销标注 (Ctrl+Z)" onClick={undoDrawing} style={{ ...toolBtn, color: '#94a3b8', fontSize: 12 }}>↩</button>
-          <button title="清除所有标注" onClick={clearDrawings} style={{ ...toolBtn, color: '#f87171', fontSize: 12 }}>🗑</button>
+          <button title="撤销标注 (Ctrl+Z)" onClick={undoDrawing} style={{ ...toolBtn, color: '#0f3d2a', fontSize: 12 }}>↩</button>
+          <button title="清除所有标注" onClick={clearDrawings} style={{ ...toolBtn, color: '#dc2626', fontSize: 12 }}>🗑</button>
         </div>
 
         {/* 画布视口 */}
@@ -860,22 +860,22 @@ export default function CanvasPage({ canvasId, onBack }) {
                     {/* 透明宽路径作为点击热区 */}
                     <path d={pathD} fill="none" stroke="transparent" strokeWidth={14} />
                     <path d={pathD} fill="none"
-                      stroke={selectedEdge === e.id ? '#f59e0b' : '#6366f1'}
-                      strokeWidth={selectedEdge === e.id ? 3 : 2}
-                      opacity={selectedEdge === e.id ? 1 : 0.7}
-                      style={selectedEdge === e.id ? { filter: 'drop-shadow(0 0 6px rgba(245,158,11,0.8))' } : {}} />
+                      stroke={selectedEdge === e.id ? '#eb7a7a' : '#476aed'}
+                      strokeWidth={selectedEdge === e.id ? 4 : 3}
+                      opacity={selectedEdge === e.id ? 1 : 0.8}
+                      style={selectedEdge === e.id ? { filter: 'drop-shadow(0 0 4px rgba(235,122,122,0.6))' } : {}} />
                     <defs><marker id={`arrow-${e.id}`} viewBox="0 0 10 10" refX={8} refY={5} markerWidth={6} markerHeight={6} orient="auto-start-reverse">
-                      <path d="M 0 0 L 10 5 L 0 10 z" fill={selectedEdge === e.id ? '#f59e0b' : '#6366f1'} />
+                      <path d="M 0 0 L 10 5 L 0 10 z" fill={selectedEdge === e.id ? '#eb7a7a' : '#476aed'} />
                     </marker></defs>
                     <path d={pathD} fill="none"
-                      stroke={selectedEdge === e.id ? '#f59e0b' : '#6366f1'}
-                      strokeWidth={selectedEdge === e.id ? 3 : 2}
-                      opacity={selectedEdge === e.id ? 1 : 0.7}
+                      stroke={selectedEdge === e.id ? '#eb7a7a' : '#476aed'}
+                      strokeWidth={selectedEdge === e.id ? 4 : 3}
+                      opacity={selectedEdge === e.id ? 1 : 0.8}
                       markerEnd={`url(#arrow-${e.id})`} />
                     {e.label && (
-                      <rect x={mx - 30} y={my - 13} width={60} height={18} rx={4} fill="rgba(30,30,60,0.9)" stroke="#4f46e5" strokeWidth={0.5} />
+                      <rect x={mx - 30} y={my - 13} width={60} height={18} rx={4} fill="#fff" stroke="#0f3d2a" strokeWidth={2} />
                     )}
-                    {e.label && <text x={mx} y={my} textAnchor="middle" fill="#a5b4fc" fontSize={10} dominantBaseline="middle">{e.label}</text>}
+                    {e.label && <text x={mx} y={my} textAnchor="middle" fill="#0f3d2a" fontSize={10} dominantBaseline="middle">{e.label}</text>}
                   </g>
                 )
               })}
@@ -891,7 +891,7 @@ export default function CanvasPage({ canvasId, onBack }) {
                 const ty = (connecting.my - pan.y) / scale
                 return (
                   <line x1={sx} y1={sy} x2={tx} y2={ty}
-                    stroke="#818cf8" strokeWidth={2 / scale} strokeDasharray={`${5 / scale},${5 / scale}`} opacity={0.6} />
+                    stroke="#0f3d2a" strokeWidth={2 / scale} strokeDasharray={`${5 / scale},${5 / scale}`} opacity={0.6} />
                 )
               })()}
             </svg>
@@ -907,12 +907,12 @@ export default function CanvasPage({ canvasId, onBack }) {
                       ...styles.imgCard,
                       left: node.x, top: node.y,
                       width: node.width || 320,
-                      borderColor: selectedNode === node.id ? '#818cf8' : dragNode === node.id ? '#6366f1' : 'transparent',
+                      borderColor: selectedNode === node.id ? '#476aed' : dragNode === node.id ? '#0f3d2a' : 'transparent',
                       boxShadow: selectedNode === node.id
-                        ? '0 0 0 2px #818cf8, 0 8px 25px rgba(0,0,0,0.5)'
+                        ? '0 0 0 2px #476aed, 6px 6px 0px #0f3d2a'
                         : dragNode === node.id
-                          ? '0 12px 30px rgba(0,0,0,0.6)'
-                          : '0 2px 10px rgba(0,0,0,0.4)',
+                          ? '8px 8px 0px #0f3d2a'
+                          : '6px 6px 0px #0f3d2a',
                       zIndex: dragNode === node.id || selectedNode === node.id ? 100 : 10,
                       cursor: activeTool === 'select' ? (dragNode === node.id ? 'grabbing' : 'grab') : 'crosshair',
                     }}
@@ -926,7 +926,7 @@ export default function CanvasPage({ canvasId, onBack }) {
                   >
                     <div style={styles.cardHead}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6, flex: 1, minWidth: 0 }}>
-                        <span style={{ fontSize: 12, fontWeight: 600, color: '#94a3b8', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        <span style={{ fontSize: 12, fontWeight: 600, color: '#0f3d2a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                           📷 {editingNode === node.id ? (
                             <input style={styles.titleInput} value={editTitle} onChange={e => setEditTitle(e.target.value)} autoFocus data-action="edit" onClick={e => e.stopPropagation()} />
                           ) : (node.data?.caption || '图片')}
@@ -965,12 +965,12 @@ export default function CanvasPage({ canvasId, onBack }) {
                     ...styles.nodeCard,
                     left: node.x, top: node.y,
                     width: node.width || 320,
-                    borderColor: selectedNode === node.id ? '#818cf8' : dragNode === node.id ? '#6366f1' : 'transparent',
+                    borderColor: selectedNode === node.id ? '#476aed' : dragNode === node.id ? '#0f3d2a' : '#0f3d2a',
                     boxShadow: selectedNode === node.id
-                      ? '0 0 0 2px #818cf8, 0 8px 25px rgba(0,0,0,0.5)'
+                      ? '0 0 0 2px #476aed, 6px 6px 0px #0f3d2a'
                       : dragNode === node.id
-                        ? '0 12px 30px rgba(0,0,0,0.6)'
-                        : '0 2px 10px rgba(0,0,0,0.4)',
+                        ? '8px 8px 0px #0f3d2a'
+                        : '6px 6px 0px #0f3d2a',
                     zIndex: dragNode === node.id || selectedNode === node.id ? 100 : 10,
                     cursor: activeTool === 'select' ? (dragNode === node.id ? 'grabbing' : 'grab') : 'crosshair',
                   }}
@@ -980,7 +980,7 @@ export default function CanvasPage({ canvasId, onBack }) {
                 >
                   <div style={styles.cardHead}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, flex: 1, minWidth: 0 }}>
-                      <span style={{ fontSize: 14, fontWeight: 600, color: '#e2e8f0', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      <span style={{ fontSize: 14, fontWeight: 600, color: '#0f3d2a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {editingNode === node.id ? (
                           <input style={styles.titleInput} value={editTitle} onChange={e => setEditTitle(e.target.value)} autoFocus data-action="edit" onClick={e => e.stopPropagation()} />
                         ) : node.data?.title || '卡片'}
@@ -1013,7 +1013,7 @@ export default function CanvasPage({ canvasId, onBack }) {
                         {node.data?.content ? (
                           <ReactMarkdown remarkPlugins={[remarkGfm]}>{node.data.content}</ReactMarkdown>
                         ) : (
-                          <span style={{ color: '#64748b', fontStyle: 'italic' }}>空卡片，双击编辑</span>
+                          <span style={{ color: '#555', fontStyle: 'italic' }}>空卡片，双击编辑</span>
                         )}
                       </div>
                     )}
@@ -1029,8 +1029,8 @@ export default function CanvasPage({ canvasId, onBack }) {
       {contextMenu && (
         <div style={{
           position: 'fixed', left: contextMenu.x, top: contextMenu.y, zIndex: 200,
-          background: '#1e293b', border: '1px solid #475569', borderRadius: 6,
-          boxShadow: '0 4px 16px rgba(0,0,0,0.5)', padding: 4, minWidth: 100
+          background: '#fff', border: '3px solid #0f3d2a', borderRadius: 6,
+          boxShadow: '4px 4px 0px #0f3d2a', padding: 4, minWidth: 100
         }}>
           <button
             onClick={() => { deleteEdge(contextMenu.edgeId); setContextMenu(null); setSelectedEdge(null) }}
@@ -1045,14 +1045,14 @@ export default function CanvasPage({ canvasId, onBack }) {
       {showAI && (
         <div style={styles.aiPanel}>
           <div style={styles.aiPanelHead}>
-            <span style={{ fontWeight: 600, color: '#e2e8f0', fontSize: 13 }}>AI 画布助手</span>
-            <span style={{ fontSize: 11, color: '#94a3b8' }}>已加载画布上下文</span>
+            <span style={{ fontWeight: 600, color: '#0f3d2a', fontSize: 13 }}>AI 画布助手</span>
+            <span style={{ fontSize: 11, color: '#555' }}>已加载画布上下文</span>
             <button onClick={() => setShowAI(false)} style={{ ...actionBtn, marginLeft: 'auto' }}>✕</button>
           </div>
           <div style={styles.aiMessages}>
             {aiMessages.map((m, i) => (
               <div key={i} style={{ marginBottom: 10 }}>
-                <div style={{ fontSize: 10, color: m.role === 'user' ? '#818cf8' : '#34d399', marginBottom: 2 }}>
+                <div style={{ fontSize: 10, color: m.role === 'user' ? '#476aed' : '#178351', marginBottom: 2 }}>
                   {m.role === 'user' ? '你' : 'AI'}
                 </div>
                 <div className="canvas-md" style={{ fontSize: 12, lineHeight: 1.6 }}>
@@ -1078,7 +1078,7 @@ export default function CanvasPage({ canvasId, onBack }) {
         <div style={styles.summaryOverlay} onClick={() => setShowSummary(false)}>
           <div style={styles.summaryModal} onClick={e => e.stopPropagation()}>
             <div style={styles.summaryHead}>
-              <span style={{ fontWeight: 600, color: '#e2e8f0' }}>📝 卡片内容总结</span>
+              <span style={{ fontWeight: 600, color: '#0f3d2a' }}>📝 卡片内容总结</span>
               <button onClick={() => setShowSummary(false)} style={{ ...actionBtn, marginLeft: 'auto' }}>✕</button>
             </div>
             <div className="canvas-md" style={styles.summaryContent}>
@@ -1100,55 +1100,55 @@ export default function CanvasPage({ canvasId, onBack }) {
 // ================================================================
 
 const styles = {
-  container: { width: '100%', height: '100%', background: '#0f172a', display: 'flex', flexDirection: 'column', fontFamily: '-apple-system,"Microsoft YaHei",sans-serif', position: 'relative', overflow: 'hidden' },
+  container: { width: '100%', height: '100%', background: '#f4f9f4', display: 'flex', flexDirection: 'column', fontFamily: 'inherit', position: 'relative', overflow: 'hidden' },
   viewport: { width: '100%', height: '100%', overflow: 'hidden', position: 'relative' },
   canvas: { position: 'absolute', top: 0, left: 0, minWidth: 6000, minHeight: 6000 },
 
   toolbar: {
     display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px',
-    background: 'rgba(15,23,42,0.95)', borderBottom: '1px solid #1e293b',
-    zIndex: 50, backdropFilter: 'blur(8px)',
+    background: '#fff', borderBottom: '4px solid #0f3d2a',
+    zIndex: 50,
   },
 
   toolPalette: {
     position: 'absolute', left: 10, top: 10, zIndex: 60,
     display: 'flex', flexDirection: 'column', gap: 4, padding: 8,
-    background: 'rgba(15,23,42,0.92)', borderRadius: 10,
-    border: '1px solid #334155', backdropFilter: 'blur(8px)',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+    background: '#fff', borderRadius: 8,
+    border: '4px solid #0f3d2a',
+    boxShadow: '4px 4px 0px #0f3d2a',
   },
 
   toolDivider: {
-    height: 1, background: '#334155', margin: '3px 0',
+    height: 2, background: '#0f3d2a', margin: '3px 0',
   },
 
   nodeCard: {
     position: 'absolute',
     width: 320,
-    background: '#1e293b',
-    borderRadius: 10,
-    border: '2px solid transparent',
+    background: '#fff',
+    borderRadius: 8,
+    border: '4px solid #0f3d2a',
+    boxShadow: '6px 6px 0px #0f3d2a',
     overflow: 'hidden',
-    transition: 'box-shadow 0.15s, border-color 0.15s',
     display: 'flex', flexDirection: 'column',
   },
 
   imgCard: {
     position: 'absolute',
     width: 320,
-    background: '#1e293b',
-    borderRadius: 10,
-    border: '2px solid transparent',
+    background: '#fff',
+    borderRadius: 8,
+    border: '4px solid #0f3d2a',
+    boxShadow: '6px 6px 0px #0f3d2a',
     overflow: 'hidden',
-    transition: 'box-shadow 0.15s, border-color 0.15s',
     display: 'flex', flexDirection: 'column',
   },
 
   cardHead: {
     padding: '8px 12px',
-    borderBottom: '1px solid #334155',
+    borderBottom: '3px dashed #0f3d2a',
     display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-    background: 'rgba(30,41,59,0.8)',
+    background: '#fff',
     cursor: 'grab',
     minHeight: 36,
   },
@@ -1157,68 +1157,75 @@ const styles = {
     maxHeight: 360,
     overflowY: 'auto',
     flex: 1,
+    background: '#fff',
+    color: '#0f3d2a',
   },
   titleInput: {
-    background: 'transparent', border: 'none', borderBottom: '1px solid #6366f1',
-    color: '#e2e8f0', fontSize: 14, fontWeight: 600, padding: '2px 4px', outline: 'none', width: '100%',
+    background: '#fff', border: '3px solid #bce1ce', borderRadius: 4,
+    color: '#0f3d2a', fontSize: 14, fontWeight: 600, padding: '2px 4px', outline: 'none', width: '100%',
   },
   mdTextarea: {
-    width: '100%', minHeight: 160, background: '#0f172a', color: '#e2e8f0',
-    border: '1px solid #6366f1', borderRadius: 6, padding: 10, fontSize: 12,
-    fontFamily: '"JetBrains Mono","Fira Code",monospace', resize: 'vertical',
+    width: '100%', minHeight: 160, background: '#fff', color: '#0f3d2a',
+    border: '3px solid #bce1ce', borderRadius: 6, padding: 10, fontSize: 12,
+    fontFamily: 'inherit', resize: 'vertical',
     lineHeight: 1.6,
   },
 
   aiPanel: {
     position: 'absolute', right: 0, top: 0, bottom: 0, width: 340,
-    background: '#1e293b', borderLeft: '1px solid #334155',
+    background: '#fff', borderLeft: '4px solid #0f3d2a',
     display: 'flex', flexDirection: 'column', zIndex: 80,
-    boxShadow: '-4px 0 20px rgba(0,0,0,0.4)',
+    boxShadow: '-4px 0px 0px rgba(15,61,42,0.1)',
   },
   aiPanelHead: {
-    padding: '10px 14px', borderBottom: '1px solid #334155',
+    padding: '10px 14px', borderBottom: '4px solid #0f3d2a',
     display: 'flex', alignItems: 'center', gap: 10,
+    color: '#0f3d2a',
   },
-  aiMessages: { flex: 1, overflowY: 'auto', padding: '12px 14px' },
+  aiMessages: { flex: 1, overflowY: 'auto', padding: '12px 14px', background: '#f4f9f4' },
   aiInput: {
-    padding: '10px 14px', borderTop: '1px solid #334155',
-    display: 'flex', gap: 8,
+    padding: '10px 14px', borderTop: '4px solid #0f3d2a',
+    display: 'flex', gap: 8, background: '#fff',
   },
   aiTextInput: {
-    flex: 1, padding: '7px 10px', background: '#0f172a', border: '1px solid #334155',
-    borderRadius: 6, color: '#e2e8f0', fontSize: 12, outline: 'none',
+    flex: 1, padding: '7px 10px', background: '#fff', border: '3px solid #bce1ce',
+    borderRadius: 6, color: '#0f3d2a', fontSize: 12, outline: 'none',
+    boxShadow: 'inset 2px 2px 0px #eaf6f0',
   },
 
   shortcuts: {
     position: 'absolute', bottom: 8, left: '50%', transform: 'translateX(-50%)',
-    fontSize: 10, color: '#475569', background: 'rgba(15,23,42,0.8)',
+    fontSize: 10, color: '#0f3d2a', background: '#fff',
     padding: '4px 14px', borderRadius: 6, pointerEvents: 'none', zIndex: 90,
+    border: '2px solid #0f3d2a',
   },
 
   summaryOverlay: {
     position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
-    background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+    background: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center',
     zIndex: 100,
   },
   summaryModal: {
-    width: 560, maxHeight: '70vh', background: '#1e293b', borderRadius: 12,
-    border: '1px solid #334155', boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
+    width: 560, maxHeight: '70vh', background: '#fff', borderRadius: 12,
+    border: '4px solid #0f3d2a', boxShadow: '8px 8px 0px #0f3d2a',
     display: 'flex', flexDirection: 'column', overflow: 'hidden',
   },
   summaryHead: {
-    padding: '12px 16px', borderBottom: '1px solid #334155',
+    padding: '12px 16px', borderBottom: '4px solid #0f3d2a',
     display: 'flex', alignItems: 'center', gap: 10,
+    color: '#0f3d2a',
   },
   summaryContent: {
     padding: '16px 20px', flex: 1, overflowY: 'auto', fontSize: 13, lineHeight: 1.8,
+    color: '#0f3d2a',
   },
   summaryFoot: {
-    padding: '12px 16px', borderTop: '1px solid #334155',
-    display: 'flex', justifyContent: 'flex-end', gap: 8,
+    padding: '12px 16px', borderTop: '4px solid #0f3d2a',
+    display: 'flex', justifyContent: 'flex-end', gap: 8, background: '#fff',
   },
 }
 
-const tbBtn = { padding: '5px 12px', fontSize: 12, border: 'none', borderRadius: 6, cursor: 'pointer', background: '#334155', color: '#e2e8f0' }
-const tbInfo = { color: '#64748b', fontSize: 11 }
-const actionBtn = { fontSize: 11, padding: '2px 6px', border: 'none', borderRadius: 4, cursor: 'pointer', background: '#334155', color: '#94a3b8' }
-const toolBtn = { width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', border: 'none', borderRadius: 6, cursor: 'pointer', fontSize: 14, transition: 'background 0.15s' }
+const tbBtn = { padding: '5px 12px', fontSize: 12, border: '3px solid #0f3d2a', borderRadius: 6, cursor: 'pointer', background: '#476aed', color: '#fff', boxShadow: '2px 2px 0px #0f3d2a' }
+const tbInfo = { color: '#555', fontSize: 11 }
+const actionBtn = { fontSize: 11, padding: '2px 6px', border: '2px solid #0f3d2a', borderRadius: 4, cursor: 'pointer', background: '#fff', color: '#0f3d2a' }
+const toolBtn = { width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', border: '3px solid #0f3d2a', borderRadius: 6, cursor: 'pointer', fontSize: 14, background: '#fff', color: '#0f3d2a', boxShadow: '2px 2px 0px #0f3d2a' }

@@ -524,12 +524,15 @@ def upload_file():
     return jsonify({"url": url, "filename": filename})
 
 
-# SPA fallback: 所有非 API 路径返回 React index.html (必须放在最后)
+# SPA fallback: 非 API 路径如果静态文件存在则返回文件，否则返回 index.html (必须放在最后)
 @app.route("/<path:path>")
 def spa_fallback(path):
     if path.startswith("uploads"):
         print(f"[IMG] SPA fallback 拦截了 uploads 路径! path={path} - 这不应该发生")
     if not path.startswith("api") and not path.startswith("uploads"):
+        file_path = STATIC_DIR / path
+        if file_path.exists() and file_path.is_file():
+            return send_from_directory(str(STATIC_DIR), path)
         return send_from_directory(str(STATIC_DIR), "index.html")
     return "Not found", 404
 

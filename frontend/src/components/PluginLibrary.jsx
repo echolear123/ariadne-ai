@@ -66,7 +66,7 @@ export default function PluginLibrary({ onClose, onInsert }) {
     <div style={overlay}>
       <div style={modal}>
         <div style={header}>
-          <span style={{ fontSize: 16, fontWeight: 600 }}>插件库</span>
+          <span style={{ fontSize: 16, fontWeight: 600, color: '#0f3d2a' }}>插件库</span>
           <button onClick={onClose} style={closeBtn}>x</button>
         </div>
 
@@ -145,30 +145,31 @@ const overlay = {
 }
 const modal = {
   width: 620, maxHeight: '80vh', background: '#fff',
-  borderRadius: 10, overflow: 'hidden', display: 'flex', flexDirection: 'column',
-  boxShadow: '0 8px 30px rgba(0,0,0,0.15)',
+  borderRadius: 8, overflow: 'hidden', display: 'flex', flexDirection: 'column',
+  border: '4px solid #0f3d2a', boxShadow: '8px 8px 0px #0f3d2a',
 }
 const header = {
-  padding: '12px 16px', borderBottom: '1px solid #e5e7eb',
+  padding: '12px 16px', borderBottom: '4px solid #0f3d2a',
   display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+  color: '#0f3d2a',
 }
-const closeBtn = { border: 'none', background: 'none', fontSize: 18, cursor: 'pointer', color: '#9ca3af' }
-const body = { padding: 12, overflowY: 'auto', flex: 1 }
-const status = { textAlign: 'center', color: '#9ca3af', padding: 20, fontSize: 13 }
-const pluginCard = { marginBottom: 8, border: '1px solid #e5e7eb', borderRadius: 6 }
+const closeBtn = { border: '2px solid #0f3d2a', background: '#fff', fontSize: 14, cursor: 'pointer', color: '#0f3d2a', borderRadius: 4, width: 24, height: 24 }
+const body = { padding: 12, overflowY: 'auto', flex: 1, background: '#eaf6f0' }
+const status = { textAlign: 'center', color: '#555', padding: 20, fontSize: 13 }
+const pluginCard = { marginBottom: 8, border: '3px solid #0f3d2a', borderRadius: 6, background: '#fff' }
 const pluginHead = { padding: '8px 12px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8 }
-const arrow = { fontSize: 10, color: '#9ca3af', width: 12 }
-const pluginName = { fontWeight: 600, fontSize: 14 }
-const badge = { fontSize: 10, background: '#e0e7ff', color: '#3730a3', padding: '1px 6px', borderRadius: 3 }
-const desc = { fontSize: 12, color: '#6b7280', flex: 1, textAlign: 'right' }
-const toolsList = { borderTop: '1px solid #f3f4f6', padding: '6px 12px 8px' }
-const toolItem = { padding: '6px 0', borderBottom: '1px solid #f9fafb' }
+const arrow = { fontSize: 10, color: '#555', width: 12 }
+const pluginName = { fontWeight: 600, fontSize: 14, color: '#0f3d2a' }
+const badge = { fontSize: 10, background: '#c3ebd5', color: '#0f3d2a', padding: '1px 6px', borderRadius: 3, border: '1px solid #0f3d2a' }
+const desc = { fontSize: 12, color: '#555', flex: 1, textAlign: 'right' }
+const toolsList = { borderTop: '2px solid #bce1ce', padding: '6px 12px 8px' }
+const toolItem = { padding: '6px 0', borderBottom: '1px solid #bce1ce' }
 const toolHead = { display: 'flex', justifyContent: 'space-between', alignItems: 'center' }
-const toolName = { fontSize: 12, background: '#f3f4f6', padding: '1px 6px', borderRadius: 3 }
-const toolDesc = { fontSize: 12, color: '#6b7280', margin: '4px 0' }
+const toolName = { fontSize: 12, background: '#eaf6f0', padding: '1px 6px', borderRadius: 3, color: '#0f3d2a' }
+const toolDesc = { fontSize: 12, color: '#555', margin: '4px 0' }
 const toolActions = { display: 'flex', gap: 6 }
-const runBtn = { fontSize: 11, padding: '2px 10px', background: '#2563eb', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer' }
-const insertBtn = { fontSize: 11, padding: '2px 10px', background: '#f3f4f6', color: '#374151', border: '1px solid #d1d5db', borderRadius: 4, cursor: 'pointer' }
-const params = { fontSize: 11, color: '#9ca3af', marginTop: 2 }
-const paramTag = { fontSize: 10, background: '#fef3c7', padding: '1px 4px', borderRadius: 2, marginLeft: 4 }
-const resultPre = { background: '#1e293b', color: '#e2e8f0', padding: '8px 10px', borderRadius: 4, fontSize: 11, marginTop: 6, maxHeight: 120, overflowY: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }
+const runBtn = { fontSize: 11, padding: '2px 10px', background: '#476aed', color: '#fff', border: '2px solid #0f3d2a', borderRadius: 4, cursor: 'pointer', boxShadow: '1px 1px 0px #0f3d2a' }
+const insertBtn = { fontSize: 11, padding: '2px 10px', background: '#fff', color: '#0f3d2a', border: '2px solid #0f3d2a', borderRadius: 4, cursor: 'pointer' }
+const params = { fontSize: 11, color: '#555', marginTop: 2 }
+const paramTag = { fontSize: 10, background: '#fef3c7', padding: '1px 4px', borderRadius: 2, marginLeft: 4, border: '1px solid #0f3d2a' }
+const resultPre = { background: '#0f3d2a', color: '#bce1ce', padding: '8px 10px', borderRadius: 4, fontSize: 11, marginTop: 6, maxHeight: 120, overflowY: 'auto', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }

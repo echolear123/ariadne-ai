@@ -29,24 +29,26 @@ export default function Sidebar({ conversations, activeId, onSelect, onDelete, o
 
 const styles = {
   sidebar: {
-    width: 260, minWidth: 260, background: '#f8fafc', borderRight: '1px solid #e2e8f0',
+    width: 260, minWidth: 260, background: '#fff', borderRight: '4px solid #0f3d2a',
     display: 'flex', flexDirection: 'column', height: '100vh'
   },
   header: {
-    padding: '16px', borderBottom: '1px solid #e2e8f0',
+    padding: '16px', borderBottom: '4px solid #0f3d2a',
     display: 'flex', alignItems: 'center', justifyContent: 'space-between'
   },
-  userName: { fontSize: 14, fontWeight: 600, color: '#1e293b' },
+  userName: { fontSize: 15, fontWeight: 600, color: '#0f3d2a' },
   newBtn: {
-    margin: '8px 12px', padding: '8px 0', background: '#2563eb', color: '#fff',
-    border: 'none', borderRadius: 6, cursor: 'pointer', fontSize: 13, fontWeight: 500
+    margin: '8px 12px', padding: '10px 0', background: '#476aed', color: '#fff',
+    border: '3px solid #0f3d2a', borderRadius: 6, cursor: 'pointer', fontSize: 14, fontWeight: 500,
+    boxShadow: '3px 3px 0px #0f3d2a',
   },
   list: { flex: 1, overflowY: 'auto', padding: '0 8px' },
   item: {
-    padding: '10px 12px', borderRadius: 6, cursor: 'pointer', marginBottom: 2
+    padding: '10px 12px', borderRadius: 6, cursor: 'pointer', marginBottom: 3,
+    border: '2px solid transparent',
   },
-  active: { background: '#e0e7ff' },
-  itemTitle: { fontSize: 13, color: '#334155', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
-  itemMeta: { fontSize: 11, color: '#94a3b8', marginTop: 4, display: 'flex', justifyContent: 'space-between' },
-  delBtn: { color: '#ef4444', cursor: 'pointer' }
+  active: { background: '#c3ebd5', border: '2px solid #0f3d2a', boxShadow: '2px 2px 0px #0f3d2a' },
+  itemTitle: { fontSize: 13, color: '#0f3d2a', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+  itemMeta: { fontSize: 11, color: '#555', marginTop: 4, display: 'flex', justifyContent: 'space-between' },
+  delBtn: { color: '#dc2626', cursor: 'pointer' }
 }
