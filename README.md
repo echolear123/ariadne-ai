@@ -150,15 +150,15 @@ cd ariadne-ai
 # 1. 安装依赖
 pip install -r requirements.txt
 
-# 2. 配置环境变量
-cp .env.example .env
-nano .env   # 填入你的 SiliconFlow API Key，其他保持默认即可
+# 2. 初始化配置
+cp .env.example .env              # 填入你的 SiliconFlow API Key
+cp config.example.py config.py     # 管理员账号等配置（可自定义 USERS 字典）
 
 # 3. 启动（单命令，含前端）
 python run.py
 ```
 
-打开浏览器访问 **http://localhost:7860**，使用默认账号 `admin` / `admin123` 登录。如需增删用户，编辑 `config.py` 中的 `USERS` 字典即可。
+打开浏览器访问 **http://localhost:7860**，使用默认账号 `admin` / `admin123` 登录。如需增删用户，编辑 `config.py` 中的 `USERS` 字典即可。**注意：`config.py` 已加入 `.gitignore`，`git pull` 不会覆盖本地配置。**
 
 ### 方式二：开发模式（前后端分离）
 
