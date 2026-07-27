@@ -13,9 +13,6 @@ venv/
 .env
 *.env.local
 
-# User config (copy from config.example.py)
-config.py
-
 # Database
 *.db
 *.db-journal
