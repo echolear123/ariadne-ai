@@ -567,22 +567,30 @@ export default function CanvasPage({ canvasId, onBack }) {
     setAiLoading(false)
   }
 
-  // 打开 AI 面板时加载已有对话历史
+  // 打开 AI 面板时恢复对话
   async function loadAIConversation() {
     const savedId = localStorage.getItem(`ai_conv_${canvasId}`)
     if (!savedId) return
     aiConvIdRef.current = savedId
     try {
       const data = await getConversation(savedId)
-      if (data && data.turns) {
+      if (data && data.turns && data.turns.length > 0) {
         const msgs = []
         for (const t of data.turns) {
           msgs.push({ role: 'user', content: t.query })
           msgs.push({ role: 'agent', content: t.answer })
         }
         setAiMessages(msgs)
+      } else {
+        // 会话不存在或为空，清理过期引用
+        localStorage.removeItem(`ai_conv_${canvasId}`)
+        aiConvIdRef.current = null
       }
-    } catch (e) { /* */ }
+    } catch (e) {
+      console.error('[CanvasPage] 加载AI对话失败:', e)
+      localStorage.removeItem(`ai_conv_${canvasId}`)
+      aiConvIdRef.current = null
+    }
   }
 
   // --- 总结卡片 ---
