@@ -133,13 +133,37 @@ def _open_or_create(state: dict) -> None:
                 f"请手动清理 tech_bureau_zvec* 目录后重试。"
             )
 
-    state["_collection"] = zvec.create_and_open(
-        path=attempt_dir,
-        schema=zvec.CollectionSchema(
-            name=state["collection_name"],
-            vectors=zvec.VectorSchema("embedding", zvec.DataType.VECTOR_FP32, DIM)
+    try:
+        state["_collection"] = zvec.create_and_open(
+            path=attempt_dir,
+            schema=zvec.CollectionSchema(
+                name=state["collection_name"],
+                vectors=zvec.VectorSchema("embedding", zvec.DataType.VECTOR_FP32, DIM)
+            )
         )
-    )
+    except Exception:
+        # 创建失败时清理并重试备用目录
+        shutil.rmtree(attempt_dir, ignore_errors=True)
+        base = str(persist_dir)
+        for suffix_num in range(2, 20):
+            alt = f"{base}_v{suffix_num}"
+            if os.path.exists(alt):
+                shutil.rmtree(alt, ignore_errors=True)
+            attempt_dir = alt
+            break
+        try:
+            state["_collection"] = zvec.create_and_open(
+                path=attempt_dir,
+                schema=zvec.CollectionSchema(
+                    name=state["collection_name"],
+                    vectors=zvec.VectorSchema("embedding", zvec.DataType.VECTOR_FP32, DIM)
+                )
+            )
+        except Exception as e:
+            raise RuntimeError(
+                f"无法初始化向量库 (原路径和新路径均失败): {persist_dir}。"
+                f"请手动删除 tech_bureau_zvec* 目录后重试。错误: {e}"
+            )
     # 如果用了备用目录，更新 persist_dir
     if attempt_dir != str(persist_dir):
         state["persist_dir"] = attempt_dir
