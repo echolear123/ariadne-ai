@@ -37,7 +37,7 @@ Ariadne 采用 **Fusion Pixel 10px Monospaced** 像素字体与复古位图美�
 *   **像素卡片**：白色像素风登录卡片悬浮于动态背景之上，卡片内部暗藏渐变的动态迷宫，呼应"循红线破局"的主题。
 
 <p align="center">
-  <img src="login.png?v=2" alt="Ariadne Login - Mac Dynamic + Pixel Maze" width="80%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="login-v2.png" alt="Ariadne Login - Mac Dynamic + Pixel Maze" width="80%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 ### 2. � 主对话界面 (`main.png`)
@@ -45,7 +45,7 @@ Ariadne 采用 **Fusion Pixel 10px Monospaced** 像素字体与复古位图美�
 *   **协同工作流**：插件库、Markdown 画布、知识库管理集成在顶部工具栏，无需页面跳转。
 
 <p align="center">
-  <img src="main.png?v=2" alt="Ariadne Main Chat - Pixel Art UI" width="80%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="main-v2.png" alt="Ariadne Main Chat - Pixel Art UI" width="80%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 ### 3. 🗂️ Markdown 画布与知识卡片 (`knowledge.png`)
@@ -53,7 +53,7 @@ Ariadne 采用 **Fusion Pixel 10px Monospaced** 像素字体与复古位图美�
 *   **绘图工具**：内置画笔、矩形、圆形、箭头等标注工具，所有元素共享统一的像素美学体系。
 
 <p align="center">
-  <img src="knowledge.png?v=2" alt="Ariadne Knowledge Canvas - Pixel Cards" width="80%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
+  <img src="knowledge-v2.png" alt="Ariadne Knowledge Canvas - Pixel Cards" width="80%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15);" />
 </p>
 
 ---
